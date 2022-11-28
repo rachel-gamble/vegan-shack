@@ -1,5 +1,7 @@
 import BaseController from "../utils/BaseController.js"
 import { vegansService } from "../services/VegansService.js"
+import { response } from "express"
+
 
 export class VegansController extends BaseController {
     constructor() {
@@ -23,8 +25,8 @@ export class VegansController extends BaseController {
 
     async getOneVegan(req, res, next) {
         try {
-            const vegan = await vegansService.getOneVegan(request.params.id)
-            return response.send({ vegan, message: 'Enjoy your harmless food!' })
+            const vegan = await vegansService.getOneVegan(req.params.id)
+            return res.send({ vegan, message: 'Enjoy your harmless food!' })
         } catch (error) {
             next(error)
         }
@@ -32,13 +34,20 @@ export class VegansController extends BaseController {
 
     async createVegan(req, res, next) {
         try {
-            const newVegan = await vegansService.createVegan(request.body)
-            return response.send(newVegan)
+            const newVegan = await vegansService.createVegan(req.body)
+            return res.send(newVegan)
         } catch (error) {
             next(error)
         }
     }
 
-
+    async remove(req, res, next) {
+        try {
+            const message = await vegansService.remove(request.params.id)
+            return response.send(message)
+        } catch (error) {
+            next(error)
+        }
+    }
 
 }
