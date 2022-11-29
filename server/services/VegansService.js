@@ -22,7 +22,7 @@ class VegansService {
         return newVegan
     }
 
-    async remove(veganId) {
+    async removeOne(veganId) {
         const vegan = await this.getOneVegan(veganId)
         let index = dbContext.Vegans.indexOf(vegan)
         dbContext.Vegans.splice(index, 1)

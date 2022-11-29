@@ -10,7 +10,7 @@ export class VegansController extends BaseController {
             .get('', this.getAllVegans)
             .get('/:id', this.getOneVegan)
             .post('', this.createVegan)
-            .delete('/:id', this.remove)
+            .delete('/:id', this.removeOne)
     }
 
 
@@ -26,7 +26,7 @@ export class VegansController extends BaseController {
     async getOneVegan(req, res, next) {
         try {
             const vegan = await vegansService.getOneVegan(req.params.id)
-            return res.send({ vegan, message: 'Enjoy your harmless food!' })
+            return res.send({ vegan })
         } catch (error) {
             next(error)
         }
@@ -41,10 +41,10 @@ export class VegansController extends BaseController {
         }
     }
 
-    async remove(req, res, next) {
+    async removeOne(req, res, next) {
         try {
-            const message = await vegansService.remove(request.params.id)
-            return response.send(message)
+            const message = await vegansService.removeOne(req.params.id)
+            return res.send(message)
         } catch (error) {
             next(error)
         }
